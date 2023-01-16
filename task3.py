@@ -1,9 +1,14 @@
+from django.db import IntegrityError, transaction
+
+
 class Foo:
     @classmethod
     def buy(cls, user, item_id):
         # Строчки 5, 6, 7 можно упросить
         product_qs = Product.objects.filter(item_id=item_id)
-        if product_qs.exists():  # Если здесь будет False, то на строчке 10 будет ошибка, что нет переменной product
+        if (
+            product_qs.exists()
+        ):  # Если здесь будет False, то на строчке 10 будет ошибка, что нет переменной product
             product = product_qs[0]
         # Проверку продукта на доступность можно сделать в запросе. Глядя только на этот метод у нас нет ни какой доп
         # логики работы когда продукт не доступен. Его вовсе можно не получать из запроса
@@ -22,6 +27,7 @@ class Foo:
             return True
         else:
             return False
+
 
 class Bar:
     @classmethod

@@ -1,8 +1,10 @@
-INDENT_TYPE = ' '
+INDENT_TYPE = " "
 INDENT_SIZE = 4
 
 
-def make_indent(depth: int, indent_size: int = INDENT_SIZE, indent_type: str = INDENT_TYPE) -> str:
+def make_indent(
+    depth: int, indent_size: int = INDENT_SIZE, indent_type: str = INDENT_TYPE
+) -> str:
     """
     Create indent.
     Args:
@@ -30,9 +32,11 @@ def render_humanized_dict(data: dict or str, depth: int = 0) -> str:
         # Берем ключ в словаре, чтобы его отобразить и чтобы взять дочерниее элементы
         key = list(data.keys())[0] if depth else "root"
         # С помощью рекурсии спускаемся по вложенным элементам до простых элементов
-        rows = [render_humanized_dict(child, depth + 1) for child in data[key]["children"]]
+        rows = [
+            render_humanized_dict(child, depth + 1) for child in data[key]["children"]
+        ]
         # Формируем строку со вложенными элементами
-        return '{0}{1}\n{2}'.format(indent, key, ''.join(rows))
+        return "{0}{1}\n{2}".format(indent, key, "".join(rows))
     # Формируем строку из простых элементов
     return f"{indent}{data}\n"
 
@@ -43,13 +47,7 @@ tariff_info = {
             {
                 "Внутрисетевой роуминг": {
                     "children": [
-                        {
-                            "Internet": {
-                                "children": [
-                                    "Значение A"
-                                ]
-                            }
-                        },
+                        {"Internet": {"children": ["Значение A"]}},
                         {
                             "MMS": {
                                 "children": [
@@ -61,11 +59,9 @@ tariff_info = {
                                                 "Входящие: 0.00",
                                                 {
                                                     "Исходящие": {
-                                                        "children": [
-                                                            "Значение B"
-                                                        ]
+                                                        "children": ["Значение B"]
                                                     }
-                                                }
+                                                },
                                             ]
                                         }
                                     },
@@ -75,26 +71,18 @@ tariff_info = {
                                                 "Входящие: 0.00",
                                             ]
                                         }
-                                    }
+                                    },
                                 ]
                             }
-                        }
+                        },
                     ]
                 }
             },
             {
                 "Домашняя сеть": {
-                    "children": [
-                        {
-                            "Internet": {
-                                "children": [
-                                    "Значение C"
-                                ]
-                            }
-                        }
-                    ]
+                    "children": [{"Internet": {"children": ["Значение C"]}}]
                 }
-            }
+            },
         ]
     }
 }

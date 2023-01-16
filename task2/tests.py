@@ -7,11 +7,11 @@ from task2.models import Lead, LeadState
 
 class TestsLeadFSM(TestCase):
     def setUp(self):
-        LeadState.objects.create(name='NEW', pk=LeadState.STATE_NEW)
-        LeadState.objects.create(name='IN_PROGRESS', pk=LeadState.STATE_IN_PROGRESS)
-        LeadState.objects.create(name='POSTPONED', pk=LeadState.STATE_POSTPONED)
-        LeadState.objects.create(name='DONE', pk=LeadState.STATE_DONE)
-        self.model = Lead.objects.create(name='test')
+        LeadState.objects.create(name="NEW", pk=LeadState.STATE_NEW)
+        LeadState.objects.create(name="IN_PROGRESS", pk=LeadState.STATE_IN_PROGRESS)
+        LeadState.objects.create(name="POSTPONED", pk=LeadState.STATE_POSTPONED)
+        LeadState.objects.create(name="DONE", pk=LeadState.STATE_DONE)
+        self.model = Lead.objects.create(name="test")
 
     def test_state_in_progress(self):
         self.assertEqual(self.model.state, 1)

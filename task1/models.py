@@ -2,13 +2,14 @@ from django.db import models
 
 from task1.utils import create_methods_from_attributes
 
+
 # Мне еще нравится идея, чтобы атрибуты стейтов хранить в отдельном классе, тогда можно было бы в декоратор передавать
 # любое количество стейтов и добавть методы, то по переданным стейтам
 @create_methods_from_attributes
 class DeliveryState(models.Model):
     class Meta:
-        verbose_name = u"Состояние доставки"
-        verbose_name_plural = u"Состояния доставок"
+        verbose_name = "Состояние доставки"
+        verbose_name_plural = "Состояния доставок"
 
     STATE_NEW = 1  # Новая
     STATE_ISSUED = 2  # Выдана курьеру
@@ -20,10 +21,11 @@ class DeliveryState(models.Model):
     STATE_NONE = 8  # Не определено
 
     name = models.CharField(
-        u"Название",
+        "Название",
         max_length=50,
         unique=True,
     )
+
 
 @create_methods_from_attributes
 class LeadState(models.Model):
@@ -35,8 +37,7 @@ class LeadState(models.Model):
     STATE_DONE = 4  # Завершен
 
     name = models.CharField(
-        u"Название",
+        "Название",
         max_length=50,
         unique=True,
     )
-

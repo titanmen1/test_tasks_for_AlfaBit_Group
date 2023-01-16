@@ -1,5 +1,5 @@
 from django.db import models
-from django_fsm import transition, FSMKeyField
+from django_fsm import FSMKeyField, transition
 
 
 class LeadState(models.Model):
@@ -18,7 +18,7 @@ class LeadState(models.Model):
     )
 
     name = models.CharField(
-        u"Название",
+        "Название",
         max_length=50,
         unique=True,
     )
@@ -28,7 +28,7 @@ class Lead(models.Model):
     name = models.CharField(
         max_length=255,
         db_index=True,
-        verbose_name=u"Имя",
+        verbose_name="Имя",
     )
 
     # Здесь я использую библиотеку django_fsm, которая отвечает за строгие переходы между статусами и так же есть
@@ -37,14 +37,14 @@ class Lead(models.Model):
         LeadState,
         on_delete=models.PROTECT,
         default=LeadState.STATE_NEW,
-        verbose_name=u"Состояние",
-        protected=True
+        verbose_name="Состояние",
+        protected=True,
     )
 
     @transition(
         field=state,
         source=[LeadState.STATE_NEW, LeadState.STATE_POSTPONED],
-        target=LeadState.STATE_IN_PROGRESS
+        target=LeadState.STATE_IN_PROGRESS,
     )
     def state_in_progress(self) -> None:
         """
@@ -54,7 +54,11 @@ class Lead(models.Model):
         """
         pass
 
-    @transition(field=state, source=LeadState.STATE_IN_PROGRESS, target=LeadState.STATE_POSTPONED)
+    @transition(
+        field=state,
+        source=LeadState.STATE_IN_PROGRESS,
+        target=LeadState.STATE_POSTPONED,
+    )
     def state_postponed(self) -> None:
         """
         This function may contain side-effects,
@@ -66,7 +70,7 @@ class Lead(models.Model):
     @transition(
         field=state,
         source=[LeadState.STATE_IN_PROGRESS, LeadState.STATE_POSTPONED],
-        target=LeadState.STATE_DONE
+        target=LeadState.STATE_DONE,
     )
     def state_done(self) -> None:
         """
